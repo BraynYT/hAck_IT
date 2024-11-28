@@ -20,5 +20,3 @@ class Users(UserMixin, BaseModel):
     roles = IntegerField()
     class Meta:
         db_table = 'users'
-
-Users.create_table()
