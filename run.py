@@ -38,6 +38,7 @@ def registration():
 def login():
     if request.method == 'POST':
         data = login_service()
+        print(data)
         return render_template('login.html', message = data)
         
     return render_template('login.html')

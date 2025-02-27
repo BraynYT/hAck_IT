@@ -13,7 +13,7 @@ def registration_service():
 def login_service():
     if request.method == 'POST':
         status, user = checkUserAuthorization(request.form['username'], request.form['password'])
-
+        print(status, user)
         if status == 0:
             login_user(user)
             if (user.roles == 1):

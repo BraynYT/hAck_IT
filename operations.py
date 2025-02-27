@@ -9,7 +9,7 @@ def addUser(username, password, email):
     if Users.get_or_none(Users.username == username):
         data = 'Пользователь уже зарегистрирован'
     else:
-        Users.create(username = username, password = password, email = email, created_on = datetime.today(), roles = 0)
+        Users.create(username = username, password = password, email = email, created_on = "1", roles = 0)
         data = None
     
     db.close()
