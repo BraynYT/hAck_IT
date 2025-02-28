@@ -39,19 +39,19 @@ def login():
     if request.method == 'POST':
         data = login_service()
         print(data)
-        return render_template('login.html', message = data)
+        return redirect(url_for("home"))
         
     return render_template('login.html')
 
 @app.route("/home")
 @login_required
 def home():
-    return render_template("home.html")
+    return render_template("index.html")
 
 @app.route('/logout')
 def logout():
-    logout_user()
-    return redirect(url_for("home"))
+    logout_user()   
+    return redirect(url_for("login"))
 
 @app.route('/')
 def index():

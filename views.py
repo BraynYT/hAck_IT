@@ -15,7 +15,7 @@ def login_service():
         status, user = checkUserAuthorization(request.form['username'], request.form['password'])
         print(status, user)
         if status == 0:
-            login_user(user)
+            login_user(user, remember=True)
             if (user.roles == 1):
                 return redirect(url_for("admin"))
             return redirect(url_for("home"))
