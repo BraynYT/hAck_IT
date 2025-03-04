@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-from werkzeug.security import generate_password_hash
 from views import registration_service, login_service
 from peewee import *
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from models import Users
-from operations import checkUserAuthorization
 
 SECRET_KEY = "tipoSecretKey"
 DEBUG = True
@@ -50,7 +48,7 @@ def home():
 
 @app.route('/logout')
 def logout():
-    logout_user()   
+    logout_user()
     return redirect(url_for("login"))
 
 @app.route('/')
