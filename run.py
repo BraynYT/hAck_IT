@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from views import registration_service, login_service, topic_create
 from operations import add_message
 from peewee import *
@@ -15,7 +15,18 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+class UserMixin(object):
+    def is_authenticated(self):
+        return True
 
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
 
 @login_manager.user_loader
 def loader_user(user_id):
@@ -62,6 +73,7 @@ def home():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash('Вы вышли из системы!', 'success')
     return redirect(url_for("login"))
 
 @app.route('/')
@@ -69,6 +81,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/topic/<int:topic_id>', methods=['GET', 'POST'])
+@login_required
 def topic(topic_id):
     topic = Topics.get_by_id(topic_id)
 
@@ -77,10 +90,10 @@ def topic(topic_id):
         return redirect(url_for('topic', topic_id=topic.id))
     return render_template('topic.html', topic=topic)
 
-@app.route('/profile/<int:user_id>')
-def profile(user_id):
-    user = Users.get_by_id(user_id)
-    return render_template('profile.html', user=user)
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', user=current_user)
 
 if __name__ == "__main__":
     app.run(debug=True)

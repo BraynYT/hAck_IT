@@ -1,181 +1,10 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форум: Главная</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav {
-            background-color: #eee;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
-
-        main {
-            padding: 20px;
-        }
-
-        .forum-category {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 5px;
-        }
-
-        .forum-category h2 {
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        .forum-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .forum-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .forum-list li:last-child {
-            border-bottom: none;
-        }
-
-        .forum-link {
-            display: block;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .forum-details {
-            font-size: 0.8em;
-            color: #777;
-        }
-
-        footer {
-            display: flex;
-            position: absolute;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 30px, 0;
-            bottom: 0;  
-            width: 100%;
-            height: 50px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Style for the "Create Topic" button */
-        .create-topic-button {
-            background-color: #007bff;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        .create-topic-button:hover {
-            background-color: #0056b3;
-        }
-                /* Styles for the topic creation form */
-                .topic-form-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none; /* Hidden by default */
-            justify-content: center;
-            align-items: center;
-            z-index: 1000; /* Ensure it's on top of everything */
-        }
-
-        .topic-form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            width: 500px;
-        }
-
-        .topic-form-container h2 {
-            margin-top: 0;
-        }
-
-        .topic-form-container label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .topic-form-container input,
-        .topic-form-container textarea,
-        .topic-form-container select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Ensure padding is included in width */
-        }
-
-        .topic-form-container button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .topic-form-container button:hover {
-            background-color: #3e8e41;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            cursor: pointer;
-            color: #777;
-        }
-    </style>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homestyle.css') }}">
 </head>
 <body>
     <header>
@@ -184,8 +13,15 @@
 
     <nav>
         <div>
-            <a href="#">Главная</a>
-            <a href="{{ url_for('profile', user_id=1) }}">Профиль</a> 
+            <a href="/">Главная</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile') }}">Профиль</a>
+                <a href="{{ url_for('logout') }}">Выйти</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Войти</a>
+                <a href="{{ url_for('register') }}">Зарегистрироваться</a>
+            {% endif %}
+            <a href="#">Поиск</a>
             <a href="#">Правила</a>
         </div>
         <a href="#" class="create-topic-button" onclick="openTopicForm()">Создать топик</a>
