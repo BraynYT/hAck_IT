@@ -38,4 +38,3 @@ class Messages(BaseModel):
     created_at = DateTimeField(default=datetime.datetime.now)
     class Meta:
         db_table = "messages"
-

@@ -77,6 +77,10 @@ def topic(topic_id):
         return redirect(url_for('topic', topic_id=topic.id))
     return render_template('topic.html', topic=topic)
 
+@app.route('/profile/<int:user_id>')
+def profile(user_id):
+    user = Users.get_by_id(user_id)
+    return render_template('profile.html', user=user)
 
 if __name__ == "__main__":
     app.run(debug=True)

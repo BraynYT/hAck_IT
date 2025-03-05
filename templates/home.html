@@ -184,8 +184,7 @@
     <nav>
         <div>
             <a href="#">Главная</a>
-            <a href="#">Поиск</a>
-            <a href="#">Профиль</a>
+            <a href="{{ url_for('profile', user_id=1) }}">Профиль</a> 
             <a href="#">Правила</a>
         </div>
         <a href="#" class="create-topic-button" onclick="openTopicForm()">Создать топик</a>
