@@ -37,7 +37,7 @@ def checkUserAuthorization(username, password):
     db.connect()
     user = Users.get_or_none(Users.username == username)
     user_data = None
-    data = 'Пользователь не зарегестрирован'
+    data = 'Пользователь не зареган'
     if (user):
         userPass = Users.get(Users.username == username)
         pass_check = check_password_hash(userPass.password, password)
@@ -50,3 +50,20 @@ def checkUserAuthorization(username, password):
 
     db.close()
     return data, user_data
+
+
+def add_topic(title, category, content):
+    topic = Topics.get_or_none(Topics.title == title)
+    
+    if (topic):
+        return 1
+        
+    else:
+        Topics.create(title = title, category = category, content = content)
+        return 0
+    
+    
+    
+
+def add_message(topic, message_text, current_user):
+    Messages.create(topic = topic, text=message_text, author = current_user)

@@ -1,4 +1,5 @@
 from peewee import *
+import datetime
 import os
 from flask_login import UserMixin
 
@@ -17,6 +18,24 @@ class Users(UserMixin, BaseModel):
     password = IntegerField()
     email = CharField()
     created_on = CharField()
-    roles = IntegerField()
+    roles = IntegerField()  
     class Meta:
         db_table = 'users'
+
+class Topics(BaseModel):
+    id = AutoField()
+    title = CharField()
+    category = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+    class Meta:
+        db_table = "topics"
+
+class Messages(BaseModel):
+    topic = ForeignKeyField(Topics, backref='messages')
+    author = CharField(default="Аноним")
+    text = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+    class Meta:
+        db_table = "messages"
+

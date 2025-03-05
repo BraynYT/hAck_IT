@@ -24,6 +24,9 @@
             background-color: #eee;
             padding: 10px;
             border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         nav a {
@@ -78,11 +81,98 @@
         }
 
         footer {
+            display: flex;
+            position: absolute;
             background-color: #333;
             color: #fff;
             text-align: center;
-            padding: 10px;
-            margin-top: 20px;
+            padding: 30px, 0;
+            bottom: 0;  
+            width: 100%;
+            height: 50px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style for the "Create Topic" button */
+        .create-topic-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .create-topic-button:hover {
+            background-color: #0056b3;
+        }
+                /* Styles for the topic creation form */
+                .topic-form-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top of everything */
+        }
+
+        .topic-form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 500px;
+        }
+
+        .topic-form-container h2 {
+            margin-top: 0;
+        }
+
+        .topic-form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .topic-form-container input,
+        .topic-form-container textarea,
+        .topic-form-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        .topic-form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .topic-form-container button:hover {
+            background-color: #3e8e41;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #777;
         }
     </style>
 </head>
@@ -92,17 +182,68 @@
     </header>
 
     <nav>
-        <a href="#">Главная</a>
-        <a href="#">Поиск</a>
-        <a href="#">Профиль</a>
-        <a href="#">Правила</a>
-        <a href="#">Войти</a>
-        <a href="#">Зарегистрироваться</a>
+        <div>
+            <a href="#">Главная</a>
+            <a href="#">Поиск</a>
+            <a href="#">Профиль</a>
+            <a href="#">Правила</a>
+        </div>
+        <a href="#" class="create-topic-button" onclick="openTopicForm()">Создать топик</a>
     </nav>
 
     <main>
+        {% for category, topics in topics_by_category.items() %}
         <section class="forum-category">
-            <h2>Общие вопросы</h2>
+            <h2>{{ category }}</h2>
             <ul class="forum-list">
+                {% for topic in topics %}
                 <li>
-                    <a href="#" class="forum-link">Добро пожаловать!</a>
+                    <a href="{{ url_for('topic', topic_id=topic.id) }}" class="forum-link">{{ topic.title }}</a>  <!-- Ссылка на страницу топика -->
+                    <div class="forum-details">Создано: {{ topic.created_at.strftime('%d.%m.%Y %H:%M') }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endfor %}
+    </main>
+
+
+    <footer>
+        &copy; 2024 Форум
+    </footer>
+
+    <!-- Overlay and Topic Form -->
+    <div class="topic-form-overlay" id="topicFormOverlay">
+        <div class="topic-form-container">
+            <span class="close-button" onclick="closeTopicForm()">&times;</span>
+            <h2>Создание нового топика</h2>
+            <form id="createTopicForm" method="POST">  <!-- Added form element -->
+                <label for="topicTitle">Заголовок:</label>
+                <input type="text" id="topicTitle" name="topicTitle" required>
+
+                <label for="topicCategory">Категория:</label>
+                <select id="topicCategory" name="topicCategory" required>
+                    <option value="Общие вопросы">Общие вопросы</option>
+                    <option value="Программирование">Программирование</option>
+                    <option value="Другие темы">Другие темы</option>
+                </select>
+
+                <label for="topicContent">Сообщение:</label>
+                <textarea id="topicContent" name="topicContent" rows="5" required></textarea>
+
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openTopicForm() {
+            document.getElementById("topicFormOverlay").style.display = "flex";
+        }
+
+        function closeTopicForm() {
+            document.getElementById("topicFormOverlay").style.display = "none";
+        }
+    </script>
+</body>
+</html>
