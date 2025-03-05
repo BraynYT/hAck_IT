@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация в Инди-Игре</title>
+    <title>Регистрация</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -63,10 +63,26 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            margin-bottom: 10px; /* Add some space between buttons */
         }
 
         .submit-button:hover {
             background-color: #3e8e41;
+        }
+
+        .login-button {
+            background-color: #007bff; /* Different color for the login button */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #0056b3;
         }
 
         .error-message {
@@ -78,13 +94,17 @@
             color: green;
             margin-top: 10px;
         }
+        a{
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
 <div class="registration-container">
     <h2>Регистрация</h2>
-    <form id="registrationForm", method="POST">
+    <form id="registrationForm" method="POST">
         <div class="form-group">
             <label for="username">Имя пользователя:</label>
             <input type="text" id="username" name="username" required>
@@ -101,11 +121,16 @@
             <label for="confirm_password">Подтвердите пароль:</label>
             <input type="password" id="confirm_password" name="confirm_password" required>
         </div>
+
         <button type="submit" class="submit-button">Зарегистрироваться</button>
+    </form>
+    <button class="login-button">
+        <a href="/login">Или войти</a>
+    </button>
 
         <div id="errorMessage" class="error-message" style="display: none;"></div>
         <div id="successMessage" class="success-message" style="display: none;"></div>
-    </form>
+
 </div>
 </body>
 </html>

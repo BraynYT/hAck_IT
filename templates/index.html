@@ -1,29 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack IT</title> 
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <title>Приветствие</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .welcome-message {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 600px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">лого</div>
-        <div class="enter"><a>Вход</a></div>
-    </div>
-    <hr>
-    <div class="d">
-        <video class="video" autoplay loop muted>
-            <source src="{{ url_for('static',filename='video.mp4') }}" type="video/mp4" class="vid">
-        </video>
-        <div class="main">
-            <h1 class="name">WeldingAndSons</h1>
-            <br>
-            <h2 class="kurs">Курсы для малого и среднего бизнеса:</h2>
-            <br>
-            <a class="enter2">Войти</a>
-        </div>
+    <div class="welcome-message">
+        <h1>Добро пожаловать на форум!</h1>
+        <p>Мы рады приветствовать вас в нашем сообществе. Здесь вы можете общаться, задавать вопросы, делиться знаниями и опытом с другими участниками.</p>
+
+        <h2>Что можно найти на форуме:</h2>
+        <ul>
+            <li>Обсуждения различных тем.</li>
+            <li>Помощь в решении проблем.</li>
+            <li>Полезные советы и ресурсы.</li>
+            <li>Новых друзей и единомышленников.</li>
+        </ul>
+
+        <p>Чтобы начать, <a href="/registration">зарегистрируйтесь</a> или <a href="/login">войдите</a> в свой аккаунт.</p>
+
+        <p>Приятного общения!</p>
     </div>
 </body>
 </html>
+

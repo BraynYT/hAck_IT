@@ -44,7 +44,7 @@ def login():
 @app.route("/home")
 @login_required
 def home():
-    return render_template("index.html")
+    return render_template("home.html")
 
 @app.route('/logout')
 def logout():
